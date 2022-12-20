@@ -6,7 +6,7 @@
 /*   By: omozo-av <omozo-av@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 21:21:50 by omozo-av          #+#    #+#             */
-/*   Updated: 2022/12/04 00:43:07 by omozo-av         ###   ########.fr       */
+/*   Updated: 2022/12/20 22:09:27 by omozo-av         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(char *s)
 {
 	size_t	i;
 
@@ -58,40 +58,39 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*join;
 	size_t	i;
+	size_t	j;
 
 	i = 0;
 	if (!s1)
-		s1 = ft_calloc(1,1);
-	if(!s1 || !s2)
+		s1 = ft_calloc (1, 1);
+	if (!s1 || !s2)
 		return (0);
-	join = malloc (((ft_strlen (s1) + ft_strlen (s2)) + 1) * sizeof(char));
+	join = malloc (sizeof(char) * ((ft_strlen (s1) + ft_strlen (s2)) + 1));
 	if (!(join))
 		return (0);
-	while (i < ft_strlen(s1))
+	while (s1[i] != '\0')
 	{
 		join[i] = s1[i];
 		i++;
 	}
-	i = 0;
-	while (i < ft_strlen(s2))
-	{
-		join[ft_strlen(s1) + i] = s2[i];
-		i++;
-	}
-	join[ft_strlen(s1) + i] = 0;
+	j = 0;
+	while (s2[j] != '\0')
+		join[i++] = s2[j++];
+	join[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+	free(s1);
 	return (join);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	int		i;
 
 	i = 0;
-	if(!s)
+	if (!s)
 		return (0);
 	while (s[i])
 	{
